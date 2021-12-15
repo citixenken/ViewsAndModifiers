@@ -10,6 +10,9 @@ import SwiftUI
 struct ContentView: View {
     @State var useGreenText = true
     
+    let title = Text("Lord of the Rings")
+    let heading = Text("The Return of the King")
+    
     var body: some View {
         VStack {
             Text("Hello, world!")
@@ -49,6 +52,13 @@ struct ContentView: View {
             }
             .font(.title) //environment modifier
             .blur(radius: 5)
+            
+            VStack {
+                title
+                    .foregroundStyle(.primary)
+                heading
+                    .foregroundStyle(.secondary)
+            }
         }
     }
 }
