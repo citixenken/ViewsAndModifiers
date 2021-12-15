@@ -10,8 +10,20 @@ import SwiftUI
 struct ContentView: View {
     @State var useGreenText = true
     
-    let title = Text("Lord of the Rings")
-    let heading = Text("The Return of the King")
+    @ViewBuilder var movie: some View { //@ViewBuilder mimics the way body works
+        Text("Lord of the Rings")
+        Text("The Two Towers")
+    }
+    var title: some View {
+        Text("Lord of the Rings")
+    }
+
+    var heading: some View {
+        Text("The Return of the King")
+    }
+    
+//    let title = Text("Lord of the Rings")
+//    let heading = Text("The Return of the King")
     
     var body: some View {
         VStack {
@@ -59,6 +71,9 @@ struct ContentView: View {
                 heading
                     .foregroundStyle(.secondary)
             }
+            
+            movie
+            
         }
     }
 }
