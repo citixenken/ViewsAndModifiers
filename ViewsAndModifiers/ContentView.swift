@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var useRedText = false
+    @State var useGreenText = true
     
     var body: some View {
         VStack {
@@ -34,12 +34,11 @@ struct ContentView: View {
                 .padding()
                 .background(.yellow)
                 .padding()
-            
-            Button("Hello, citixenken") {
-                //flip boolean
-                useRedText.toggle()
+            Button("Click me!") {
+                //do something
+                useGreenText.toggle()
             }
-            .foregroundColor(useRedText ? .red : .green)
+            .foregroundColor(useGreenText ? .green : .red)
         }
     }
 }
