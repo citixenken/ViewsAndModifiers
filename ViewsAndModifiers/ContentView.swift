@@ -9,21 +9,30 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack (spacing: 10) {
-            Color.blue
-                .frame(width: 400, height: 200)
-                .watermarked(with: "Essential Swift Fundamentals")
+        GridStack(rows: 4, columns: 4) { row, col in
             
-            Text("Here we go!!!")
-                //.modifier(Title())
-                .titleStyle()
+            Image(systemName: "\(row * 4 + col).circle")
+            Text("R\(row) C\(col)")
             
-            CapsuleText(text: "Numero")
-                .modifier(Title())
-                //.foregroundColor(.primary)
-            CapsuleText(text: "Uno")
-                .foregroundColor(.secondary)
-            
+        }
+    }
+}
+
+//        VStack (spacing: 10) {
+//            Color.blue
+//                .frame(width: 400, height: 200)
+//                .watermarked(with: "Essential Swift Fundamentals")
+//
+//            Text("Here we go!!!")
+//                //.modifier(Title())
+//                .titleStyle()
+//
+//            CapsuleText(text: "Numero")
+//                .modifier(Title())
+//                //.foregroundColor(.primary)
+//            CapsuleText(text: "Uno")
+//                .foregroundColor(.secondary)
+//
 //            Text("Numero")
 //                .font(.largeTitle)
 //                .padding()
@@ -36,61 +45,81 @@ struct ContentView: View {
 //                .foregroundColor(.secondary)
 //                .background(.green)
 //                .clipShape(Capsule())
-        }
-    }
-}
+//        }
+//    }
 
-struct CapsuleText: View {
-    var text: String
+struct GridStack<Content: View>: View {
+    let rows: Int
+    let columns: Int
+    @ViewBuilder let content: (Int, Int) -> Content
     
     var body: some View {
-        Text(text)
-            .font(.largeTitle)
-            .padding()
-            .background(.green)
-            .clipShape(Capsule())
-    }
-}
-
-//custom modifier
-struct Title: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(.largeTitle)
-            .foregroundColor(.white)
-            .padding()
-            .background(.blue)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-    }
-}
-
-extension View {
-    func titleStyle() -> some View {
-        modifier(Title())
-    }
-}
-
-
-struct Watermark: ViewModifier {
-    var text: String
-    
-    func body(content: Content) -> some View {
-        ZStack (alignment: .bottomTrailing) {
-            content
-            Text(text)
-                .font(.subheadline)
-                .foregroundColor(.white)
-                .padding()
-                .background(.mint)
+        VStack {
+            ForEach(0..<rows, id: \.self) { row in
+                HStack {
+                    ForEach(0..<columns, id: \.self) { column in
+                        content(row, column)
+                    }
+                }
+            }
         }
     }
 }
 
-extension View {
-    func watermarked(with text: String) -> some View {
-        modifier(Watermark(text: text))
-    }
-}
+
+//
+//struct CapsuleText: View {
+//    var text: String
+//
+//    var body: some View {
+//        Text(text)
+//            .font(.largeTitle)
+//            .padding()
+//            .background(.green)
+//            .clipShape(Capsule())
+//    }
+//}
+//
+////custom modifier
+//struct Title: ViewModifier {
+//    func body(content: Content) -> some View {
+//        content
+//            .font(.largeTitle)
+//            .foregroundColor(.white)
+//            .padding()
+//            .background(.blue)
+//            .clipShape(RoundedRectangle(cornerRadius: 15))
+//    }
+//}
+//
+//extension View {
+//    func titleStyle() -> some View {
+//        modifier(Title())
+//    }
+//}
+//
+//
+//struct Watermark: ViewModifier {
+//    var text: String
+//
+//    func body(content: Content) -> some View {
+//        ZStack (alignment: .bottomTrailing) {
+//            content
+//            Text(text)
+//                .font(.subheadline)
+//                .foregroundColor(.white)
+//                .padding()
+//                .background(.mint)
+//        }
+//    }
+//}
+//
+//extension View {
+//    func watermarked(with text: String) -> some View {
+//        modifier(Watermark(text: text))
+//    }
+//}
+
 //struct ContentView: View {
 //    @State var useGreenText = true
 //
