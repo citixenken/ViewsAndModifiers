@@ -39,6 +39,16 @@ struct ContentView: View {
                 useGreenText.toggle()
             }
             .foregroundColor(useGreenText ? .green : .red)
+            VStack {
+                Text("Gryffindor")
+                Text("Hufflepuff")
+                Text("Ravenclaw")
+                Text("Slytherin")
+                    .font(.title2) //overrides environment modiifier
+                    .blur(radius: 0) //won't work coz blur is a regular modifier
+            }
+            .font(.title) //environment modifier
+            .blur(radius: 5)
         }
     }
 }
