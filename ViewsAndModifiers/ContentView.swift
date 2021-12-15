@@ -10,8 +10,17 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack (spacing: 10) {
+            Color.blue
+                .frame(width: 400, height: 200)
+                .watermarked(with: "Essential Swift Fundamentals")
+            
+            Text("Here we go!!!")
+                //.modifier(Title())
+                .titleStyle()
+            
             CapsuleText(text: "Numero")
-                .foregroundColor(.primary)
+                .modifier(Title())
+                //.foregroundColor(.primary)
             CapsuleText(text: "Uno")
                 .foregroundColor(.secondary)
             
@@ -43,7 +52,45 @@ struct CapsuleText: View {
     }
 }
 
+//custom modifier
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundColor(.white)
+            .padding()
+            .background(.blue)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+    }
+}
 
+extension View {
+    func titleStyle() -> some View {
+        modifier(Title())
+    }
+}
+
+
+struct Watermark: ViewModifier {
+    var text: String
+    
+    func body(content: Content) -> some View {
+        ZStack (alignment: .bottomTrailing) {
+            content
+            Text(text)
+                .font(.subheadline)
+                .foregroundColor(.white)
+                .padding()
+                .background(.mint)
+        }
+    }
+}
+
+extension View {
+    func watermarked(with text: String) -> some View {
+        modifier(Watermark(text: text))
+    }
+}
 //struct ContentView: View {
 //    @State var useGreenText = true
 //
